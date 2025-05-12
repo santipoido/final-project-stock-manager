@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Entity
@@ -18,5 +19,6 @@ public class Category {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int id;
 
+    @NotBlank(message = "The category name can't be empty")
     private String name;
 }
