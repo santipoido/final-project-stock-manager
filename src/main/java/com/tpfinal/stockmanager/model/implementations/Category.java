@@ -1,11 +1,10 @@
 package com.tpfinal.stockmanager.model.implementations;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -20,5 +19,8 @@ public class Category {
     private int id;
 
     @NotBlank(message = "The category name can't be empty")
-    private String name;
+    private String categoryName;
+
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    private List<Product> products;
 }

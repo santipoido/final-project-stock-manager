@@ -1,9 +1,6 @@
 package com.tpfinal.stockmanager.model.implementations;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.*;
@@ -21,12 +18,15 @@ public class Product {
     private int id;
 
     @NotBlank(message = "The product name can't be empty")
-    private String name;
+    private String productName;
 
     @PositiveOrZero
     private int stock;
 
     @PositiveOrZero
     private float price;
-    // category
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 }

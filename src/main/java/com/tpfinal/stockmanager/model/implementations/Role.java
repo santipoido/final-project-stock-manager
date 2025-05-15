@@ -20,7 +20,7 @@ public class Role {
     private int id;
 
     @NotBlank(message="The role name can't be empty")
-    private String name;
+    private String roleName;
 
     private String description;
 }
