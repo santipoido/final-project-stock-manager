@@ -1,33 +1,61 @@
 package com.tpfinal.stockmanager.service.implementations;
 
+import com.tpfinal.stockmanager.model.implementations.Category;
 import com.tpfinal.stockmanager.model.implementations.Product;
 import com.tpfinal.stockmanager.repository.interfaces.ProductRepository;
+import com.tpfinal.stockmanager.service.interfaces.IntProductService;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ProductService {
+public class ProductService implements IntProductService {
     private final ProductRepository productRepository;
 
     public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
 
-    public List<Product> getProducts() {
+    @Override
+    public List<Product> findAll() {
         return productRepository.findAll();
     }
 
-    public Product saveProduct(Product product) {
-        return productRepository.save(product);
-    }
-
-    public void deleteProduct(int id) {
-        productRepository.deleteById(id);
-    }
-
-    public Optional<Product> getProductById(int id) {
+    @Override
+    public Optional<Product> findOptionalById(Integer id) {
         return productRepository.findById(id);
+    }
+
+    @Override
+    public Product findById(Integer id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada con id: " + id));
+    }
+
+    @Override
+    public Product create(Product entity) {
+        return productRepository.save(entity);
+    }
+
+    @Override
+    @Transactional
+    public Product update(Integer id, Product entityDetails) {
+        Product existingEntity = productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Entity not found"));
+
+        existingEntity.setProductName(entityDetails.getProductName());
+        existingEntity.setCategory(entityDetails.getCategory());
+        existingEntity.setPrice(entityDetails.getPrice());
+        existingEntity.setStock(entityDetails.getStock());
+        return productRepository.save(existingEntity);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        productRepository.deleteById(id);
     }
 }
