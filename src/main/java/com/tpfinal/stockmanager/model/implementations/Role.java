@@ -12,7 +12,9 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
+@Table (name = "RoleDB")
 public class Role {
+
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -21,8 +23,8 @@ public class Role {
     @NotBlank(message="The role name can't be empty")
     private String roleName;
 
-    private String description;
+    private String roleDescription;
 
-    @OneToMany(mappedBy = "role")
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
     private List<User> users;
 }

@@ -11,6 +11,7 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
+@Table (name = "Product")
 public class Product {
 
     @Id

@@ -12,6 +12,7 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
+@Table (name = "UserDB")
 public class User {
 
     @Id
