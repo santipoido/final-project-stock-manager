@@ -1,12 +1,11 @@
 package com.tpfinal.stockmanager.service.implementations;
 
-import com.tpfinal.stockmanager.model.implementations.Category;
+import com.tpfinal.stockmanager.exceptions.entityAlreadyExists;
 import com.tpfinal.stockmanager.model.implementations.Product;
 import com.tpfinal.stockmanager.repository.interfaces.ProductRepository;
 import com.tpfinal.stockmanager.service.interfaces.IntProductService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,8 +36,13 @@ public class ProductService implements IntProductService {
     }
 
     @Override
-    public Product create(Product entity) {
-        return productRepository.save(entity);
+    public Product create(Product entity) throws entityAlreadyExists {
+        if(!productRepository.existsById(entity.getId())) {
+            return productRepository.save(entity);
+
+        }else {
+            throw new entityAlreadyExists("El producto ya existe");
+        }
     }
 
     @Override

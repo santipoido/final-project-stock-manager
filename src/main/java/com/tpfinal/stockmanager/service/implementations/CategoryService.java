@@ -1,4 +1,5 @@
 package com.tpfinal.stockmanager.service.implementations;
+import com.tpfinal.stockmanager.exceptions.entityAlreadyExists;
 import com.tpfinal.stockmanager.model.implementations.Category;
 import com.tpfinal.stockmanager.repository.interfaces.CategoryRepository;
 import com.tpfinal.stockmanager.service.interfaces.IntCategoryService;
@@ -35,8 +36,13 @@ public class CategoryService implements IntCategoryService {
     }
 
     @Override
-    public Category create(Category entity) {
-        return categoryRepository.save(entity);
+    public Category create(Category entity) throws entityAlreadyExists {
+        if(!categoryRepository.existsById(entity.getId())){
+            return categoryRepository.save(entity);
+        } else {
+            throw new entityAlreadyExists("El categoria que intentas crear ya existe");
+
+        }
     }
 
     @Override
