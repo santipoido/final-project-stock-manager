@@ -19,6 +19,12 @@ public class User {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int id;
 
+    @NotBlank(message = "The name can't be empty")
+    private String name;
+
+    @NotBlank(message = "The lastname can't be empty")
+    private String lastname;
+
     @NotBlank(message="The username can't be empty")
     @Size(min = 4)
     private String username;
@@ -30,5 +36,8 @@ public class User {
             message = "La contraseña debe contener al menos una letra mayúscula y un número"
     )
     private String passw;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
 }
