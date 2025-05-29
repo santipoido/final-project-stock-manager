@@ -31,26 +31,26 @@ public class UserService implements IntUserService {
     }
 
     @Override
-    public User findById(Integer id) {
+    public User findById(Integer id) throws EntityNotFoundException {
         return userRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada con id: " + id));
+                .orElseThrow(() -> new EntityNotFoundException("Entity not found with id: " + id));
     }
 
     @Override
-    public User create(User entity) throws entityAlreadyExists {
+    public User create(User entity) throws EntityNotFoundException {
         if(!userRepository.existsById(entity.getId())) {
             return userRepository.save(entity);
 
         } else {
-            throw new entityAlreadyExists("Entidad no encontrada");
+            throw new EntityNotFoundException("Entity not found");
         }
     }
 
     @Override
     @Transactional
-    public User update(Integer id, User entityDetails) {
+    public User update(Integer id, User entityDetails) throws EntityNotFoundException {
         User existingEntity = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Entity not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Entity not found"));
 
         existingEntity.setUsername(entityDetails.getUsername());
         existingEntity.setPassw(entityDetails.getPassw());
@@ -59,7 +59,11 @@ public class UserService implements IntUserService {
     }
 
     @Override
-    public void delete(Integer id) {
-        userRepository.deleteById(id);
+    public void delete(Integer id) throws EntityNotFoundException {
+
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("User with ID " + id + " was not found"));
+
+        userRepository.delete(user);
     }
 }

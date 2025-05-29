@@ -25,7 +25,7 @@ public class ProductService implements IntProductService {
     }
 
     @Override
-    public Optional<Product> findOptionalById(Integer id) {
+    public Optional<Product> findOptionalById(Integer id) throws EntityNotFoundException {
         return productRepository.findById(id);
     }
 
@@ -59,7 +59,10 @@ public class ProductService implements IntProductService {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Integer id) throws EntityNotFoundException {
+        Product product = productRepository.findById(id)
+                        .orElseThrow(() -> new EntityNotFoundException("Entity not found"));
+
         productRepository.deleteById(id);
     }
 }
