@@ -1,7 +1,5 @@
 package com.tpfinal.stockmanager.service.implementations;
 
-import com.tpfinal.stockmanager.exceptions.entityAlreadyExists;
-import com.tpfinal.stockmanager.model.implementations.Product;
 import com.tpfinal.stockmanager.model.implementations.ProductSale;
 import com.tpfinal.stockmanager.repository.interfaces.ProductSaleRepository;
 import com.tpfinal.stockmanager.service.interfaces.IntProductSaleService;

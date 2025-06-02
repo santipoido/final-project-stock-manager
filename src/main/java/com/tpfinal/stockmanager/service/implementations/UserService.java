@@ -1,6 +1,5 @@
 package com.tpfinal.stockmanager.service.implementations;
 
-import com.tpfinal.stockmanager.exceptions.entityAlreadyExists;
 import com.tpfinal.stockmanager.model.implementations.User;
 import com.tpfinal.stockmanager.repository.interfaces.UserRepository;
 import com.tpfinal.stockmanager.service.interfaces.IntUserService;
