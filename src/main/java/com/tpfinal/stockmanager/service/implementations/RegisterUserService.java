@@ -1,6 +1,5 @@
 package com.tpfinal.stockmanager.service.implementations;
 
-import com.tpfinal.stockmanager.dto.CreateUserRequest;
 import com.tpfinal.stockmanager.model.implementations.User;
 import com.tpfinal.stockmanager.repository.interfaces.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
