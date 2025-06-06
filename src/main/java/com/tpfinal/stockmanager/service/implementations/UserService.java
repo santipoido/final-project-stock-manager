@@ -36,7 +36,7 @@ public class UserService implements IntUserService {
 
     @Override
     public Optional<User> findOptionalByName(String username) {
-        return userRepository.findByUsername(username);
+        return userRepository.findByusername(username);
     }
 
     @Override

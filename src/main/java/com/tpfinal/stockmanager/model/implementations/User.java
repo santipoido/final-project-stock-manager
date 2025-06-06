@@ -18,7 +18,7 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-@Table (name = "UserDB")
+@Table (name = "userDB")
 public class User implements UserDetails {
 
     @Id

@@ -35,7 +35,7 @@ public class CategoryService implements IntCategoryService {
 
     @Override
     public Optional<Category> findOptionalByName(String name) {
-        return categoryRepository.findByName(name);
+        return categoryRepository.findBycategoryName(name);
     }
 
 

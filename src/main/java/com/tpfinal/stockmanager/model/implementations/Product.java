@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-@Table (name = "Product")
+@Table (name = "product")
 public class Product {
 
     @Id

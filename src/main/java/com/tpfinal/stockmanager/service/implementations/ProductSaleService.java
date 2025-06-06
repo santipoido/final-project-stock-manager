@@ -36,8 +36,9 @@ public class ProductSaleService implements IntProductSaleService {
 
     @Override
     public Optional<ProductSale> findOptionalByName(String name) {
-        return productSaleRepository.findByName(name);
+        return Optional.empty();
     }
+
 
     @Override
     public ProductSale create(ProductSale entity) throws EntityExistsException {

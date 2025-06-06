@@ -37,7 +37,7 @@ public class ProductService implements IntProductService {
 
     @Override
     public Optional<Product> findOptionalByName(String name) {
-        return productRepository.findByName(name);
+        return productRepository.findByproductName(name);
     }
 
     @Override
