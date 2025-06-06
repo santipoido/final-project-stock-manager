@@ -1,20 +1,22 @@
 package com.tpfinal.stockmanager.service.implementations;
 
 import com.tpfinal.stockmanager.model.implementations.ProductSale;
+import com.tpfinal.stockmanager.repository.interfaces.CategoryRepository;
 import com.tpfinal.stockmanager.repository.interfaces.ProductSaleRepository;
 import com.tpfinal.stockmanager.service.interfaces.IntProductSaleService;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class ProductSaleService implements IntProductSaleService {
-    private final ProductSaleRepository productSaleRepository;
 
-    public ProductSaleService(ProductSaleRepository productSaleRepository) {
-        this.productSaleRepository = productSaleRepository;
-    }
+     @Autowired
+    private ProductSaleRepository productSaleRepository;
 
     @Override
     public List<ProductSale> findAll() {
@@ -30,6 +32,11 @@ public class ProductSaleService implements IntProductSaleService {
     public ProductSale findById(Integer id) {
         return productSaleRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada con id: " + id));
+    }
+
+    @Override
+    public Optional<ProductSale> findOptionalByName(String name) {
+        return productSaleRepository.findByName(name);
     }
 
     @Override

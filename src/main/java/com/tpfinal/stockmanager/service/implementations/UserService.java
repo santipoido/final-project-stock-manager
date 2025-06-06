@@ -1,10 +1,12 @@
 package com.tpfinal.stockmanager.service.implementations;
 
 import com.tpfinal.stockmanager.model.implementations.User;
+import com.tpfinal.stockmanager.repository.interfaces.CategoryRepository;
 import com.tpfinal.stockmanager.repository.interfaces.UserRepository;
 import com.tpfinal.stockmanager.service.interfaces.IntUserService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,12 +14,9 @@ import java.util.Optional;
 
 @Service
 public class UserService implements IntUserService {
-    private final UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public List<User> findAll() {
@@ -33,6 +32,11 @@ public class UserService implements IntUserService {
     public User findById(Integer id) throws EntityNotFoundException {
         return userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Entity not found with id: " + id));
+    }
+
+    @Override
+    public Optional<User> findOptionalByName(String username) {
+        return userRepository.findByUsername(username);
     }
 
     @Override

@@ -7,6 +7,7 @@ public interface BaseService<T, ID> {
     List<T> findAll();
     Optional<T> findOptionalById(ID id);
     T findById(ID id); // Lanza excepción si no se encuentra
+    Optional<T> findOptionalByName(String name);
     T create(T entity);
     T update(ID id, T entity);
     void delete(ID id);

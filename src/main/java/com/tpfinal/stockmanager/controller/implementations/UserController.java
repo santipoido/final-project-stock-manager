@@ -2,6 +2,7 @@ package com.tpfinal.stockmanager.controller.implementations;
 
 import com.tpfinal.stockmanager.model.implementations.User;
 import com.tpfinal.stockmanager.service.implementations.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,7 +19,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public ResponseEntity<?> createUser(@RequestBody User user){
+    public ResponseEntity<?> createUser(@Valid @RequestBody User user){
         User newUser = userService.create(user);
         return ResponseEntity.ok(newUser);
     }
@@ -39,6 +40,13 @@ public class UserController {
     public ResponseEntity<List<User>> listUsers() {
         List<User> users = userService.findAll();
         return ResponseEntity.ok(users);
+    }
+
+    @GetMapping("/by-name")
+    public ResponseEntity<User> getProductByName(@RequestParam String name) {
+        return userService.findOptionalByName(name)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 }
 

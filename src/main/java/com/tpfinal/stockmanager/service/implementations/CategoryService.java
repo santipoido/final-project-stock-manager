@@ -5,6 +5,7 @@ import com.tpfinal.stockmanager.service.interfaces.IntCategoryService;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,12 +13,9 @@ import java.util.Optional;
 
 @Service
 public class CategoryService implements IntCategoryService {
-    private final CategoryRepository categoryRepository;
 
-    public CategoryService(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
-    }
-
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Override
     public List<Category> findAll() {
@@ -34,6 +32,12 @@ public class CategoryService implements IntCategoryService {
         return categoryRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada con id: " + id));
     }
+
+    @Override
+    public Optional<Category> findOptionalByName(String name) {
+        return categoryRepository.findByName(name);
+    }
+
 
     @Override
     public Category create(Category entity) throws EntityExistsException {
