@@ -1,6 +1,7 @@
 package com.tpfinal.stockmanager.service.implementations;
 
 import com.tpfinal.stockmanager.model.implementations.ProductSale;
+import com.tpfinal.stockmanager.model.implementations.ProductSaleDTO;
 import com.tpfinal.stockmanager.repository.interfaces.CategoryRepository;
 import com.tpfinal.stockmanager.repository.interfaces.ProductSaleRepository;
 import com.tpfinal.stockmanager.service.interfaces.IntProductSaleService;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductSaleService implements IntProductSaleService {
@@ -19,8 +21,17 @@ public class ProductSaleService implements IntProductSaleService {
     private ProductSaleRepository productSaleRepository;
 
     @Override
+    public List<ProductSaleDTO> findAllDTO() {
+        return productSaleRepository.findAll()
+                .stream()
+                .map(ProductSaleDTO::new)
+                .collect(Collectors.toList());
+    }
+
+
+    @Override
     public List<ProductSale> findAll() {
-        return productSaleRepository.findAll();
+        return List.of();
     }
 
     @Override
