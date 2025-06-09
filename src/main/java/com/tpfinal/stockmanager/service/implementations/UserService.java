@@ -56,7 +56,7 @@ public class UserService implements IntUserService {
                 .orElseThrow(() -> new EntityNotFoundException("Entity not found"));
 
         existingEntity.setUsername(entityDetails.getUsername());
-        existingEntity.setPassw(entityDetails.getPassw());
+        existingEntity.setPassword(entityDetails.getPassword());
 
         return userRepository.save(existingEntity);
     }

@@ -37,7 +37,7 @@ public class ProductService implements IntProductService {
 
     @Override
     public Optional<Product> findOptionalByName(String name) {
-        return productRepository.findByproductName(name);
+        return productRepository.findByName(name);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class ProductService implements IntProductService {
             throw new IllegalArgumentException("Stock or price can't be less than 0");
         }
 
-        existingEntity.setProductName(entityDetails.getProductName());
+        existingEntity.setName(entityDetails.getName());
         existingEntity.setCategory(entityDetails.getCategory());
         existingEntity.setPrice(entityDetails.getPrice());
         existingEntity.setStock(entityDetails.getStock());

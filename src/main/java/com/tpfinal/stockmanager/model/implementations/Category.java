@@ -20,7 +20,7 @@ public class Category {
     private int id;
 
     @NotBlank(message = "The category name can't be empty")
-    private String categoryName;
+    private String name;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<Product> products;

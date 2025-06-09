@@ -35,7 +35,7 @@ public class CategoryService implements IntCategoryService {
 
     @Override
     public Optional<Category> findOptionalByName(String name) {
-        return categoryRepository.findBycategoryName(name);
+        return categoryRepository.findByName(name);
     }
 
 
@@ -55,7 +55,7 @@ public class CategoryService implements IntCategoryService {
         Category existingEntity = categoryRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Entity not found"));
 
-        existingEntity.setCategoryName(entityDetails.getCategoryName());
+        existingEntity.setName(entityDetails.getName());
         existingEntity.setProducts(entityDetails.getProducts());
         return categoryRepository.save(existingEntity);
     }

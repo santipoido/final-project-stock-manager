@@ -59,8 +59,8 @@ public class ProductSaleService implements IntProductSaleService {
         existingEntity.setUser(entity.getUser());
         existingEntity.setProduct(entity.getProduct());
         existingEntity.setQuantity(entity.getQuantity());
-        existingEntity.setSaleDate(entity.getSaleDate());
-        existingEntity.setUnitPrice(entity.getUnitPrice());
+        existingEntity.setSale_date(entity.getSale_date());
+        existingEntity.setUnit_price(entity.getUnit_price());
 
         return productSaleRepository.save(existingEntity);
     }

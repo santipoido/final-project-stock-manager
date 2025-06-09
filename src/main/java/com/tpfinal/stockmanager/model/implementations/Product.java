@@ -21,7 +21,7 @@ public class Product {
     private int id;
 
     @NotBlank(message = "The product name can't be empty")
-    private String productName;
+    private String name;
 
     @PositiveOrZero
     private int stock;

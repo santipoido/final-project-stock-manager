@@ -41,7 +41,7 @@ public class User implements UserDetails {
             regexp = "^(?=.*[A-Z])(?=.*\\d).+$",
             message = "La contraseña debe contener al menos una letra mayúscula y un número"
     )
-    private String passw;
+    private String password;
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -63,7 +63,7 @@ public class User implements UserDetails {
 
     @Override
     public String getPassword() {
-        return passw;
+        return password;
     }
 
     @Override

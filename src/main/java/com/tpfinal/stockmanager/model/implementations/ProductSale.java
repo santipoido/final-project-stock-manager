@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Builder
-@Table (name = "productSale")
+@Table (name = "product_sale")
 public class ProductSale {
 
     @Id
@@ -30,13 +30,13 @@ public class ProductSale {
     private int quantity;
 
     @Positive(message = "Unit price must greater than 0")
-    private float unitPrice;
+    private float unit_price;
 
-    private LocalDateTime saleDate;
+    private LocalDateTime sale_date;
 
     @PrePersist
     public void prePersist() {
-        saleDate = LocalDateTime.now();
+        sale_date = LocalDateTime.now();
     }
 }
 
