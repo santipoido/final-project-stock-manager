@@ -1,6 +1,7 @@
 package com.tpfinal.stockmanager.model.implementations;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
@@ -24,6 +25,7 @@ public class SaleDetail {
     private Sale sale;
 
     @ManyToOne
+    @JsonIgnoreProperties({"stock", "price", "category"})
     @JoinColumn(name = "product_id")
     private Product product;
 
