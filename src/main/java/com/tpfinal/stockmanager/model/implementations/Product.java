@@ -36,5 +36,5 @@ public class Product {
 
     @JsonIgnore
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<ProductSale> productSaleList;
+    private List<SaleDetail> saleDetails;
 }

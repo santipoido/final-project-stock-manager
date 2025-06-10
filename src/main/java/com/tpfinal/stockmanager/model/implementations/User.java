@@ -1,5 +1,7 @@
 package com.tpfinal.stockmanager.model.implementations;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tpfinal.stockmanager.service.implementations.SaleService;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -46,8 +48,9 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<ProductSale> productSaleList;
+    private List<Sale> sales;
 
 
     @Override
