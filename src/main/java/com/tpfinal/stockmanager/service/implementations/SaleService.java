@@ -10,6 +10,7 @@ import com.tpfinal.stockmanager.repository.interfaces.ProductRepository;
 import com.tpfinal.stockmanager.repository.interfaces.SaleRepository;
 import com.tpfinal.stockmanager.repository.interfaces.UserRepository;
 import com.tpfinal.stockmanager.service.interfaces.IntSaleService;
+import jakarta.persistence.EntityExistsException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
