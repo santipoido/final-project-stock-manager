@@ -24,10 +24,10 @@ public class Product {
     @NotBlank(message = "The product name can't be empty")
     private String name;
 
-    @PositiveOrZero
+    @PositiveOrZero(message = "The stock can't be equals or less than 0")
     private int stock;
 
-    @PositiveOrZero
+    @PositiveOrZero(message = "The price can't be equals or less than 0")
     private float price;
 
     @ManyToOne

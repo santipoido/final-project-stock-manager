@@ -14,78 +14,68 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-@Entity
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-@Builder
-@Table (name = "userDB")
-public class User implements UserDetails {
+    @Entity
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Getter
+    @Setter
+    @Builder
+    @Table (name = "userDB")
+    public class User implements UserDetails {
 
-    @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private int id;
+        @Id
+        @GeneratedValue (strategy = GenerationType.IDENTITY)
+        private int id;
 
-    @NotBlank(message = "The name can't be empty")
-    private String name;
+        private String name;
 
-    @NotBlank(message = "The lastname can't be empty")
-    private String lastname;
+        private String lastname;
 
-    @NotBlank(message="The username can't be empty")
-    @Size(min = 4)
-    private String username;
+        private String username;
 
-    @NotBlank(message="The password can't be empty")
-    @Size(min = 6)
-    @Pattern(
-            regexp = "^(?=.*[A-Z])(?=.*\\d).+$",
-            message = "La contraseña debe contener al menos una letra mayúscula y un número"
-    )
-    private String password;
+        private String password;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
+        @Enumerated(EnumType.STRING)
+        private Role role;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Sale> sales;
+        @JsonIgnore
+        @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+        private List<Sale> sales;
 
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        @Override
+        public Collection<? extends GrantedAuthority> getAuthorities() {
+            return List.of(new SimpleGrantedAuthority(role.name()));
+        }
+
+
+        @Override
+        public String getUsername() {
+            return username;
+        }
+
+        @Override
+        public String getPassword() {
+            return password;
+        }
+
+        @Override
+        public boolean isAccountNonExpired() {
+            return true;
+        }
+
+        @Override
+        public boolean isAccountNonLocked() {
+            return true;
+        }
+
+        @Override
+        public boolean isCredentialsNonExpired() {
+            return true;
+        }
+
+        @Override
+        public boolean isEnabled() {
+            return true;
+        }
     }
-
-
-    @Override
-    public String getUsername() {
-        return username;
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-}
