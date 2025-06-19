@@ -56,10 +56,19 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
-                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                )
+                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/login","/login.html", "/login.css", "/productos.html", "/productos.css", "/productos.js", "/categorias.html", "/categorias.css", "/categorias.js").permitAll()
+                        .requestMatchers(
+                                "/api/auth/login",
+                                "/login.html", "/login.css",
+                                "/productos.html", "/productos.css", "/productos.js",
+                                "/categorias.html", "/categorias.css", "/categorias.js",
+
+                                //Swagger/OpenAPI
+                                "/v3/api-docs/**",
+                                "/swagger-ui.html",
+                                "/swagger-ui/**"
+                        ).permitAll()
                         .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider())
@@ -67,5 +76,6 @@ public class SecurityConfig {
 
         return http.build();
     }
+
 }
 
