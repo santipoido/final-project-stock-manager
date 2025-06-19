@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/categorias.css">
+    <title>Categorias</title>
+
+</head>
+
+<body>
+<div class="formbold-main-wrapper">
+    <div class="formbold-form-wrapper">
+        <div class="formbold-event-wrapper">
+            <span>MANEJA TU STOCK!</span>
+            <h3>AGREGA UNA NUEVA CATEGORIA</h3>
+
+
+        </div>
+
+        <form onsubmit="agregarCategoria(); return false;">
+
+
+            <div class="formbold-input-flex">
+                <div>
+                    <label for="firstname" class="formbold-form-label">Nombre de la categoria<span style="color: red">
+                                *</span></label>
+                    <input type="text" name="firstname" id="firstname" class="formbold-form-input" />
+                </div>
+            </div>
+
+            <button type="submit" class="formbold-btn">AGREGAR CATEGORIA</button>
+        </form>
+    </div>
+</div>
+
+
+<div class="parent" id="categoriasContainer">
+
+</div>
+<script src="/categorias.js"></script>
+</body>
+
+</html>
