@@ -63,6 +63,7 @@ public class SecurityConfig {
                                 "/login.html", "/login.css",
                                 "/productos.html", "/productos.css", "/productos.js",
                                 "/categorias.html", "/categorias.css", "/categorias.js",
+                                "/vendedores.html", "/vendedores.css", "/vendedores.js",
 
                                 //Swagger/OpenAPI
                                 "/v3/api-docs/**",
