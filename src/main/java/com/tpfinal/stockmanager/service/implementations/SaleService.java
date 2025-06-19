@@ -11,6 +11,7 @@ import com.tpfinal.stockmanager.repository.interfaces.SaleRepository;
 import com.tpfinal.stockmanager.repository.interfaces.UserRepository;
 import com.tpfinal.stockmanager.service.interfaces.IntSaleService;
 import jakarta.persistence.EntityExistsException;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -33,7 +34,7 @@ public class SaleService implements IntSaleService {
     @Transactional
     public Sale createSale(SaleRequestDTO saleRequest) {
         User user = userRepository.findById(saleRequest.getUserId())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
 
         Sale sale = Sale.builder()
                 .date(LocalDateTime.now())
@@ -41,6 +42,7 @@ public class SaleService implements IntSaleService {
                 .build();
 
         List<SaleDetail> details = new ArrayList<>();
+        double total = 0.0;
 
         for (ProductQuantityDTO detailRequest : saleRequest.getProducts()) {
             Product product = productRepository.findById(detailRequest.getProductId())
@@ -53,6 +55,9 @@ public class SaleService implements IntSaleService {
             product.setStock(product.getStock() - detailRequest.getQuantity());
             productRepository.save(product);
 
+            double subtotal = product.getPrice() * detailRequest.getQuantity();
+            total += subtotal;
+
             SaleDetail detail = SaleDetail.builder()
                     .product(product)
                     .quantity(detailRequest.getQuantity())
@@ -64,6 +69,7 @@ public class SaleService implements IntSaleService {
         }
 
         sale.setDetails(details);
+        sale.setTotal(total);
 
         return saleRepository.save(sale);
     }

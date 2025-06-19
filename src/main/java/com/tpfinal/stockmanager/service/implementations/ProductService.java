@@ -42,9 +42,8 @@ public class ProductService implements IntProductService {
 
     @Override
     public Product create(Product entity) throws EntityExistsException {
-        if(!productRepository.existsById(entity.getId())) {
+        if(!productRepository.existsByName(entity.getName())) {
             return productRepository.save(entity);
-
         }else {
             throw new EntityExistsException("El producto ya existe");
         }
@@ -69,9 +68,10 @@ public class ProductService implements IntProductService {
 
     @Override
     public void delete(Integer id) throws EntityNotFoundException {
-        Product product = productRepository.findById(id)
-                        .orElseThrow(() -> new EntityNotFoundException("Entity not found"));
-
-        productRepository.deleteById(id);
+        if (!productRepository.existsById(id)) {
+            throw new EntityNotFoundException("Entidad no encontrada con id: " + id);
+        }else{
+            productRepository.deleteById(id);
+        }
     }
 }

@@ -41,7 +41,7 @@ public class UserService implements IntUserService {
 
     @Override
     public User create(User entity) throws EntityNotFoundException {
-        if(!userRepository.existsById(entity.getId())) {
+        if(!userRepository.existsByUsername(entity.getUsername())) {
             return userRepository.save(entity);
 
         } else {

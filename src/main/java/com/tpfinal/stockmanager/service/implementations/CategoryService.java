@@ -41,7 +41,7 @@ public class CategoryService implements IntCategoryService {
 
     @Override
     public Category create(Category entity) throws EntityExistsException {
-        if(!categoryRepository.existsById(entity.getId())){
+        if(!categoryRepository.existsByName(entity.getName())){
             return categoryRepository.save(entity);
         } else {
             throw new EntityExistsException("El categoria que intentas crear ya existe");
@@ -63,6 +63,10 @@ public class CategoryService implements IntCategoryService {
 
     @Override
     public void delete(Integer id) {
-        categoryRepository.deleteById(id);
+        if (categoryRepository.existsById(id)) {
+            categoryRepository.deleteById(id);
+        }else{
+            throw new EntityNotFoundException("La categoria que intentas eliminar no existe");
+        }
     }
 }

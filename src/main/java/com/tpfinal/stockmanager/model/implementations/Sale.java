@@ -25,6 +25,9 @@ public class Sale {
 
     private LocalDateTime date;
 
+    @Column(nullable = false)
+    private double total;
+
     @JsonIgnoreProperties({"name", "lastname", "username", "password", "role", "sales", "enabled", "authorities", "credentialsNonExpired", "accountNonExpired", "accountNonLocked"})
     @ManyToOne
     @JoinColumn(name = "user_id")

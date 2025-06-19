@@ -31,7 +31,6 @@ public class SaleController {
     @GetMapping
     public ResponseEntity<List<Sale>> listSales() {
         List<Sale> sales = saleService.findAll();
-        System.out.println("CANTIDAD DE ELEMENTOS: " + sales.size());
         return ResponseEntity.ok(sales);
     }
 }
