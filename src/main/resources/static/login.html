@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/login.css">
+    <title>Login - Stock App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            background-color: #f0f0f0;
+        }
+        .login-container {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div class="login-container">
+    <h2>Iniciar sesión</h2>
+    <form id="loginForm">
+        <input type="text" id="username" placeholder="Usuario" required />
+        <input type="password" id="password" placeholder="Contraseña" required />
+        <button type="submit">Ingresar</button>
+    </form>
+    <p id="mensaje" class="error"></p>
+</div>
+
+<script>
+    document.getElementById("loginForm").addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+
+        try {
+            const response = await fetch("http://localhost:8080/api/auth/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ username, password })
+            });
+
+            if (!response.ok) {
+                document.getElementById("mensaje").innerText = "❌ Usuario o contraseña incorrectos.";
+                return;
+            }
+
+            const data = await response.json();
+            localStorage.setItem("token", data.token); // Guardar token
+
+            // Redirigir al panel principal (por ejemplo a agregar producto)
+            window.location.href = "productos.html";
+        } catch (error) {
+            console.error("Error al iniciar sesión:", error);
+            document.getElementById("mensaje").innerText = "❌ Error al conectar con el servidor.";
+        }
+    });
+</script>
+</body>
+</html>
+
