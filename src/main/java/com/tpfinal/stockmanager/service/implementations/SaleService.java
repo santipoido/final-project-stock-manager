@@ -30,6 +30,7 @@ public class SaleService implements IntSaleService {
     private final ProductRepository productRepository;
     private final SaleRepository saleRepository;
     private final UserRepository userRepository;
+    private final DolarService dolarService;
 
     @Transactional
     public Sale createSale(SaleRequestDTO saleRequest) {
@@ -70,6 +71,9 @@ public class SaleService implements IntSaleService {
 
         sale.setDetails(details);
         sale.setTotal(total);
+
+        double dolarRate = dolarService.obtenerCotizacionDolarOficial().doubleValue();
+        sale.setTotalUsd(total / dolarRate);
 
         return saleRepository.save(sale);
     }

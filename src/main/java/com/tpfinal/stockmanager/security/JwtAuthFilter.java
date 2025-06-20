@@ -40,9 +40,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             return;
         }
 
-
-        token = authHeader.substring(7); //este es el token (usamos el index 7 para saltarse la palabra bearer)
-        username = jwtService.extractUsername(token); //obtenemos le username mediante el token
+        token = authHeader.substring(7);
+        username = jwtService.extractUsername(token);
 
         System.out.println("Token extraído: " + token);
         System.out.println("Usuario extraído del token: " + username);
@@ -56,12 +55,13 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
-            }else{
+            } else {
                 System.out.println("Token inválido para el usuario");
             }
         }
 
         filterChain.doFilter(request, response);
     }
+
 }
 

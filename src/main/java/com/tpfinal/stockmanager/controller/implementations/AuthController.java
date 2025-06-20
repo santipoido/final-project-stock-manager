@@ -43,8 +43,9 @@ public class AuthController {
     @Autowired
     private UserRepository userRepository;
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
+
     @PostMapping("/register")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest request, BindingResult bindingResult) {
         if (userRepository.findByusername(request.getUsername()).isPresent()) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("El nombre de usuario ya existe.");
