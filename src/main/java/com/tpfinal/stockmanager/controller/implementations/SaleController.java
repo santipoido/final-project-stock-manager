@@ -5,6 +5,7 @@ import com.tpfinal.stockmanager.model.implementations.Product;
 import com.tpfinal.stockmanager.model.implementations.Sale;
 import com.tpfinal.stockmanager.model.implementations.User;
 import com.tpfinal.stockmanager.service.implementations.SaleService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,14 +25,26 @@ public class SaleController {
 
     @PostMapping("/create")
     public ResponseEntity<Sale> createSale(@RequestBody SaleRequestDTO saleRequest) {
-        Sale sale = saleService.createSale(saleRequest);
+        Sale sale = saleService.create(saleRequest);
         return ResponseEntity.ok(sale);
     }
 
-    @GetMapping
+    @GetMapping("/get")
     public ResponseEntity<List<Sale>> listSales() {
         List<Sale> sales = saleService.findAll();
         return ResponseEntity.ok(sales);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updateSale(@PathVariable Integer id, @RequestBody Sale dto) {
+        Sale updatedSale = saleService.update(id, dto);
+        return ResponseEntity.ok(updatedSale);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteSale(@PathVariable Integer id) {
+        saleService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
 

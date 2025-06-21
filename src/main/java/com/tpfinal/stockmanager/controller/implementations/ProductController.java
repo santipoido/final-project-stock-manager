@@ -8,9 +8,12 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/products")
@@ -22,35 +25,40 @@ public class ProductController {
     private ProductService productService;
 
     @Operation(summary = "Create a product")
-    @PostMapping
-    public ResponseEntity<?> createProduct(@Valid @RequestBody Product product){
+    @PostMapping("/create")
+    public ResponseEntity<?> createProduct(@Valid @RequestBody Product product, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errors = new HashMap<>();
+            bindingResult.getFieldErrors().forEach(err -> errors.put(err.getField(), err.getDefaultMessage()));
+            return ResponseEntity.badRequest().body(errors);
+        }
         Product newProduct = productService.create(product);
         return ResponseEntity.ok(newProduct);
     }
 
     @Operation(summary = "Update a product")
-    @PutMapping("/{id}")
-    public ResponseEntity<?> updateProduct(@PathVariable Integer id, @RequestBody Product dto) {
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updateProduct(@PathVariable Integer id, @Valid @RequestBody Product dto) {
         Product updatedProduct = productService.update(id, dto);
         return ResponseEntity.ok(updatedProduct);
     }
 
     @Operation(summary = "Delete a product")
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteProduct(@PathVariable Integer id) {
         productService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
     @Operation(summary = "Get all products")
-    @GetMapping
+    @GetMapping("/get")
     public ResponseEntity<List<Product>> listProducts() {
         List<Product> products = productService.findAll();
         return ResponseEntity.ok(products);
     }
 
     @Operation(summary = "Get product by name")
-    @GetMapping("/by-name")
+    @GetMapping("/get/by-name")
     public ResponseEntity<Product> getProductByName(@RequestParam String name) {
         return productService.findOptionalByName(name)
                 .map(ResponseEntity::ok)

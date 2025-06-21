@@ -19,31 +19,31 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<?> createCategory(@Valid @RequestBody Category category){
         Category newCategory = categoryService.create(category);
         return ResponseEntity.ok(newCategory);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<?> updateCategory(@PathVariable Integer id, @RequestBody Category dto) {
         Category updateCategory = categoryService.update(id, dto);
         return ResponseEntity.ok(updateCategory);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteCategory(@PathVariable Integer id) {
         categoryService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping
+    @GetMapping("/get")
     public ResponseEntity<List<Category>> listCategories() {
         List<Category> categories = categoryService.findAll();
         return ResponseEntity.ok(categories);
     }
 
-    @GetMapping("/by-name")
+    @GetMapping("/get/by-name")
     public ResponseEntity<Category> getCategoryByName(@RequestParam String name) {
         return categoryService.findOptionalByName(name)
                 .map(ResponseEntity::ok)

@@ -33,7 +33,7 @@ public class SaleService implements IntSaleService {
     private final DolarService dolarService;
 
     @Transactional
-    public Sale createSale(SaleRequestDTO saleRequest) {
+    public Sale create(SaleRequestDTO saleRequest) {
         User user = userRepository.findById(saleRequest.getUserId())
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
 
@@ -85,13 +85,14 @@ public class SaleService implements IntSaleService {
     }
 
     @Override
-    public Optional<Sale> findOptionalById(Integer integer) {
-        return Optional.empty();
+    public Optional<Sale> findOptionalById(Integer id) {
+        return saleRepository.findById(id);
     }
 
     @Override
-    public Sale findById(Integer integer) {
-        return null;
+    public Sale findById(Integer id) {
+        return saleRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Sale not found with id: " + id));
     }
 
     @Override
@@ -110,8 +111,11 @@ public class SaleService implements IntSaleService {
     }
 
     @Override
-    public void delete(Integer integer) {
+    public void delete(Integer id) {
+        Sale sale = saleRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Sale with ID " + id + " was not found"));
 
+        saleRepository.delete(sale);
     }
 }
 

@@ -1,7 +1,8 @@
 package com.tpfinal.stockmanager.service.implementations;
 
+import com.tpfinal.stockmanager.model.dto.RegisterRequest;
+import com.tpfinal.stockmanager.model.implementations.Role;
 import com.tpfinal.stockmanager.model.implementations.User;
-import com.tpfinal.stockmanager.repository.interfaces.CategoryRepository;
 import com.tpfinal.stockmanager.repository.interfaces.UserRepository;
 import com.tpfinal.stockmanager.service.interfaces.IntUserService;
 import jakarta.persistence.EntityNotFoundException;
@@ -50,13 +51,22 @@ public class UserService implements IntUserService {
     }
 
     @Override
+    public User update(Integer integer, User entity) {
+        return null; //obsoleto
+    }
+
     @Transactional
-    public User update(Integer id, User entityDetails) throws EntityNotFoundException {
+    @Override
+    public User update(Integer id, RegisterRequest entityDetails) throws EntityNotFoundException {
         User existingEntity = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Entity not found"));
 
         existingEntity.setUsername(entityDetails.getUsername());
         existingEntity.setPassword(entityDetails.getPassword());
+        existingEntity.setName(entityDetails.getName());
+        existingEntity.setRole(Role.valueOf(entityDetails.getRole()));
+        existingEntity.setLastname(entityDetails.getLastname());
+
 
         return userRepository.save(existingEntity);
     }
