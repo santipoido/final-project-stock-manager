@@ -6,6 +6,7 @@ import com.tpfinal.stockmanager.model.implementations.Sale;
 import com.tpfinal.stockmanager.model.implementations.User;
 import com.tpfinal.stockmanager.service.implementations.SaleService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,6 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/sales")
 @PreAuthorize("hasAnyRole('ADMIN', 'SELLER')")
+@Tag(name = "Sales", description = "Operations related to sales")
 public class SaleController {
 
     private final SaleService saleService;
@@ -35,17 +37,6 @@ public class SaleController {
         return ResponseEntity.ok(sales);
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateSale(@PathVariable Integer id, @RequestBody Sale dto) {
-        Sale updatedSale = saleService.update(id, dto);
-        return ResponseEntity.ok(updatedSale);
-    }
-
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteSale(@PathVariable Integer id) {
-        saleService.delete(id);
-        return ResponseEntity.noContent().build();
-    }
 }
 
 

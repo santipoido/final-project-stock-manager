@@ -3,6 +3,7 @@ package com.tpfinal.stockmanager.controller.implementations;
 import com.tpfinal.stockmanager.model.dto.RegisterRequest;
 import com.tpfinal.stockmanager.model.implementations.User;
 import com.tpfinal.stockmanager.service.implementations.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/users")
 @PreAuthorize("hasRole('ADMIN')")
+@Tag(name = "Users", description = "Operations related to users")
 public class UserController {
 
     @Autowired

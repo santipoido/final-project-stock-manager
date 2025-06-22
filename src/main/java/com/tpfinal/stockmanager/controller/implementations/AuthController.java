@@ -7,6 +7,7 @@ import com.tpfinal.stockmanager.model.implementations.Role;
 import com.tpfinal.stockmanager.model.implementations.User;
 import com.tpfinal.stockmanager.repository.interfaces.UserRepository;
 import com.tpfinal.stockmanager.security.JwtService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,6 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
+@Tag(name = "Authentication", description = "How to login and register")
 @RequestMapping("/api/auth")
 public class AuthController {
 

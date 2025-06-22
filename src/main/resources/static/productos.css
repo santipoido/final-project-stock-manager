@@ -182,8 +182,8 @@ body {
     background-color: #6a64f1;
     border: 1px solid #ccc;
     border-radius: 12px;
-    padding: 20px;
-    min-height: 220px; /* hace espacio para el botón */
+    padding: 20px 20px 30px 20px; /* más padding abajo */
+    min-height: 250px; /* podés subir si te falta espacio */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     color: white;
     text-align: center;
@@ -266,7 +266,24 @@ body {
     transition: background-color 0.2s ease;
 }
 .btn-eliminar:hover {
-    background-color: #c53030;
+    background-color: darkred;
+}
+
+
+.btn-modificar{
+    margin-top: 12px;
+    padding: 10px;
+    background-color: green;
+    border: none;
+    color: white;
+    font-size: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.2s ease;
+}
+.btn-modificar:hover {
+    background-color: darkgreen;
 }
 
 .custom-header {
@@ -303,6 +320,7 @@ body {
 
 .nav-links a:hover {
     color: #d1ceff;
+    cursor: pointer;
 }
 
 @media (max-width: 768px) {
@@ -319,6 +337,7 @@ body {
     }
 
     .nav-links a {
+        cursor: pointer;
         margin-left: 0;
     }
 }

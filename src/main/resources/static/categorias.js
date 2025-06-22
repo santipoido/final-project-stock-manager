@@ -16,7 +16,7 @@ function agregarCategoria() {
         name: nombre
     };
 
-    fetch('/api/categories', {
+    fetch('/api/categories/create', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -42,7 +42,13 @@ function agregarCategoria() {
 function cargarCategorias() {
     const token = localStorage.getItem("token");
 
-    fetch('/api/categories', {
+    if (!token) {
+        alert("⚠️ No estás logueado. Redirigiendo al login...");
+        window.location.href = "/login.html";
+        return;
+    }
+
+    fetch('/api/categories/get', {
         headers: {
             'Authorization': `Bearer ${token}`   // <-- acá corregí
         }
@@ -77,7 +83,7 @@ function eliminarCategoria(id) {
 
     const token = localStorage.getItem("token");
 
-    fetch(`/api/categories/${id}`, {
+    fetch(`/api/categories/delete/${id}`, {
         method: 'DELETE',
         headers: {
             'Authorization': `Bearer ${token}`   // <-- acá corregí

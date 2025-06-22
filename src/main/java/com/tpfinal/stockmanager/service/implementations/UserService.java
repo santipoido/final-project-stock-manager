@@ -8,6 +8,7 @@ import com.tpfinal.stockmanager.service.interfaces.IntUserService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +19,8 @@ public class UserService implements IntUserService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public List<User> findAll() {
@@ -62,7 +65,7 @@ public class UserService implements IntUserService {
                 .orElseThrow(() -> new EntityNotFoundException("Entity not found"));
 
         existingEntity.setUsername(entityDetails.getUsername());
-        existingEntity.setPassword(entityDetails.getPassword());
+        existingEntity.setPassword(passwordEncoder.encode(entityDetails.getPassword()));
         existingEntity.setName(entityDetails.getName());
         existingEntity.setRole(Role.valueOf(entityDetails.getRole()));
         existingEntity.setLastname(entityDetails.getLastname());

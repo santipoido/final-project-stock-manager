@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/vendedores.css">
-    <title>Vendedores</title>
+    <title>Usuarios</title>
 
 </head>
 
@@ -24,50 +24,54 @@
 <div class="formbold-main-wrapper">
     <div class="formbold-form-wrapper">
         <div class="formbold-event-wrapper">
-            <span>MANEJA TU STOCK!</span>
-            <h3>AGREGA UN NUEVO VENDEDOR</h3>
+            <span>MANEJA TU EQUIPO!</span>
+            <h3>AGREGA UN NUEVO USUARIO AL EQUIPO</h3>
 
 
         </div>
 
-        <form onsubmit="agregarProducto(); return false;">
-
-
+        <form onsubmit="agregarUsuario(); return false;">
             <div class="formbold-input-flex">
                 <div>
-                    <label for="firstname" class="formbold-form-label">Nombre<span style="color: red">
-                                *</span></label>
+                    <label for="firstname" class="formbold-form-label">Nombre<span style="color: red">*</span></label>
                     <input type="text" name="firstname" id="firstname" class="formbold-form-input" />
                 </div>
                 <div>
-                    <label for="lastname" class="formbold-form-label">Apellido<span style="color: red">
-                                *</span></label>
+                    <label for="lastname" class="formbold-form-label">Apellido<span style="color: red">*</span></label>
                     <input type="text" name="lastname" id="lastname" class="formbold-form-input" />
                 </div>
             </div>
 
             <div class="formbold-input-flex">
                 <div>
-                    <label for="email" class="formbold-form-label">Nombre de usuario <span style="color: red">
-                                *</span></label>
+                    <label for="email" class="formbold-form-label">Nombre de usuario<span style="color: red">*</span></label>
                     <input type="text" name="email" id="email" class="formbold-form-input" />
                 </div>
-                <div style="display: flex; gap: 10px; align-items: end;">
-                    <div style="flex: 1;">
-                        <label class="formbold-form-label">Contraseña<span style="color: red">*</span></label>
-                        <input type="password" name="email" id="" class="formbold-form-input" />
-                    </div>
+                <div id="password-group">
+                    <label for="phone" class="formbold-form-label">Contraseña<span style="color: red">*</span></label>
+                    <input type="password" name="phone" id="phone" class="formbold-form-input" />
                 </div>
             </div>
 
-            <button type="submit" class="formbold-btn">AGREGAR VENDEDOR</button>
+            <div class="formbold-input-flex">
+                <div style="width: 100%;">
+                    <label for="rol" class="formbold-form-label">Rol<span style="color: red">*</span></label>
+                    <select name="rol" id="rol" class="formbold-form-input">
+                        <option value="">Seleccioná un rol</option>
+                        <option value="ADMIN">Admin</option>
+                        <option value="SELLER">Vendedor</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="button" onclick="handleUsuario()" class="formbold-btn" id="btn-agregar">AGREGAR USUARIO</button>
         </form>
     </div>
 </div>
 
 
-<div class="parent" id="productosContainer">
-    <!-- Los productos se cargarán acá dinámicamente -->
+<div class="parent" id="usuariosContainer">
+    <!-- Los usuarios se cargarán acá dinámicamente -->
 </div>
 <script src="/vendedores.js"></script>
 </body>

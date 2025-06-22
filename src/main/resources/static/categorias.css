@@ -322,6 +322,7 @@ body {
     }
 
     .nav-links a {
+        cursor: pointer;
         margin-left: 0;
     }
 }

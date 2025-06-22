@@ -3,6 +3,7 @@ package com.tpfinal.stockmanager.controller.implementations;
 import com.tpfinal.stockmanager.model.implementations.Category;
 import com.tpfinal.stockmanager.model.implementations.Product;
 import com.tpfinal.stockmanager.service.implementations.CategoryService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/categories")
 @PreAuthorize("hasAnyRole('ADMIN', 'SELLER')")
+@Tag(name = "Categories", description = "Operations related to categories")
 public class CategoryController {
 
     @Autowired

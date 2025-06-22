@@ -16,7 +16,7 @@ function agregarProducto() {
         return;
     }
 
-    const nuevoProducto = {
+    const producto = {
         name: nombre,
         stock: stock,
         price: precio,
@@ -25,33 +25,46 @@ function agregarProducto() {
         }
     };
 
-    fetch('/api/products', {
-        method: 'POST',
+    const id = window.productoEnEdicion;
+
+    const url = id ? `/api/products/update/${id}` : '/api/products/create';
+    const method = id ? 'PUT' : 'POST';
+
+    fetch(url, {
+        method: method,
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`   // <-- acá corregí
+            'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify(nuevoProducto)
+        body: JSON.stringify(producto)
     })
-    .then(response => {
-        if (!response.ok) throw new Error("Error al crear producto");
-        return response.json();
-    })
-    .then(data => {
-        alert("✅ Producto agregado con éxito: " + data.name);
-        document.querySelector("form").reset();
-        cargarProductos();
-    })
-    .catch(error => {
-        console.error("Error al agregar producto:", error);
-        alert(" No se pudo agregar el producto.");
-    });
+        .then(response => {
+            if (!response.ok) throw new Error("Error al guardar producto");
+            return response.json();
+        })
+        .then(data => {
+            alert(id ? "✅ Producto modificado con éxito: " + data.name : "✅ Producto agregado con éxito: " + data.name);
+
+            // Resetear el formulario
+            const form = document.querySelector("form");
+            form.reset();
+
+            // Restaurar el estado del botón principal
+            const btn = document.getElementById("btn-agregar");
+            btn.innerText = "AGREGAR PRODUCTO";
+            btn.style.display = "inline-block";
+            btn.disabled = false;
+
+            // Limpiar producto en edición y recargar productos
+            window.productoEnEdicion = null;
+            cargarProductos();
+        })
 }
 
 function cargarProductos() {
     const token = localStorage.getItem("token");
 
-    fetch('/api/products', {
+    fetch('/api/products/get', {
         headers: {
             'Authorization': `Bearer ${token}`   // <-- acá corregí
         }
@@ -73,6 +86,7 @@ function cargarProductos() {
   <span>Precio: $${producto.price}</span>
   <span>Categoría: ${producto.category.name}</span>
   <button class="btn-eliminar" onclick="eliminarProducto(${producto.id})">Eliminar</button>
+  <button class="btn-modificar" onclick="cargarProductoEnFormulario(${producto.id})">Modificar</button>
 `;
             container.appendChild(div);
         });
@@ -86,7 +100,7 @@ function cargarProductos() {
 function cargarCategorias() {
     const token = localStorage.getItem("token");
 
-    fetch('/api/categories', {
+    fetch('/api/categories/get', {
         headers: {
             'Authorization': `Bearer ${token}`
         }
@@ -119,7 +133,7 @@ function eliminarProducto(id) {
 
     const token = localStorage.getItem("token");
 
-    fetch(`/api/products/${id}`, {
+    fetch(`/api/products/delete/${id}`, {
         method: 'DELETE',
         headers: {
             'Authorization': `Bearer ${token}`   // <-- acá corregí
@@ -134,4 +148,36 @@ function eliminarProducto(id) {
         console.error("Error al eliminar:", err);
         alert("❌ No se pudo eliminar el producto.");
     });
+}
+
+
+function cargarProductoEnFormulario(id) {
+    const token = localStorage.getItem("token");
+
+    fetch(`/api/products/get/${id}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+        .then(response => response.json())
+        .then(producto => {
+            document.getElementById("firstname").value = producto.name;
+            document.getElementById("lastname").value = producto.stock;
+            document.getElementById("email").value = producto.price;
+            document.getElementById("phone").value = producto.category.id;
+
+            window.productoEnEdicion = producto.id;
+
+            const btn = document.getElementById("btn-agregar");
+            btn.innerText = "GUARDAR CAMBIOS";
+            btn.style.display = "inline-block";
+            btn.disabled = false;
+
+            document.querySelector("form").scrollIntoView({ behavior: "smooth" });
+        })
+        .catch(error => {
+            console.error("Error al cargar producto para modificar:", error);
+            alert("❌ No se pudo cargar el producto.");
+        });
 }
