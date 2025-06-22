@@ -74,4 +74,9 @@ public class ProductService implements IntProductService {
             productRepository.deleteById(id);
         }
     }
+
+    public List<Product> getProductsWithoutStock() {
+        return productRepository.findAllWithoutStock();
+    }
+
 }

@@ -25,12 +25,14 @@ public class SaleController {
 
     private final SaleService saleService;
 
+    @Operation(summary = "Create a sale")
     @PostMapping("/create")
     public ResponseEntity<Sale> createSale(@RequestBody SaleRequestDTO saleRequest) {
         Sale sale = saleService.create(saleRequest);
         return ResponseEntity.ok(sale);
     }
 
+    @Operation(summary = "Get all sales")
     @GetMapping("/get")
     public ResponseEntity<List<Sale>> listSales() {
         List<Sale> sales = saleService.findAll();

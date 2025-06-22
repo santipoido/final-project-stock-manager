@@ -7,6 +7,7 @@ import com.tpfinal.stockmanager.model.implementations.Role;
 import com.tpfinal.stockmanager.model.implementations.User;
 import com.tpfinal.stockmanager.repository.interfaces.UserRepository;
 import com.tpfinal.stockmanager.security.JwtService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,7 @@ public class AuthController {
     private UserRepository userRepository;
 
 
+    @Operation(summary = "Register a new user")
     @PostMapping("/register")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest request, BindingResult bindingResult) {
@@ -71,6 +73,7 @@ public class AuthController {
         return ResponseEntity.ok("Usuario registrado correctamente.");
     }
 
+    @Operation(summary = "Login with credentials")
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthRequest request) {
         authManager.authenticate(

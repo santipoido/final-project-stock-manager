@@ -130,6 +130,7 @@ function cargarUsuarios() {
                 div.classList.add(`div${i + 1}`);
                 div.innerHTML = `
                     <strong>${u.name} ${u.lastname}</strong>
+                    <strong>${u.username}</strong>
                     <span>Rol: ${u.role}</span>
                     <button class="btn-eliminar" onclick="eliminarUsuario(${u.id})">Eliminar</button>
                     <button class="btn-modificar" onclick="cargarUsuarioEnFormulario(${u.id})">Modificar</button>

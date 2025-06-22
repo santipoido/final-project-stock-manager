@@ -71,4 +71,11 @@ public class ProductController {
         Product product = productService.findById(id);
         return ResponseEntity.ok(product);
     }
+
+    @Operation(summary = "Get products without stock")
+    @GetMapping("/get/without-stock")
+    public ResponseEntity<List<Product>> getProductsWithoutStock() {
+        List<Product> products = productService.getProductsWithoutStock();
+        return ResponseEntity.ok(products);
+    }
 }

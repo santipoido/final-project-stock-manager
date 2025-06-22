@@ -12,7 +12,7 @@ public class OpenAPIConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Stock App API")
+                        .title("Stock Manager API")
                         .version("1.0.0")
                         .description("Documentación de la API para gestión de stock, productos y categorías.")
                 );
