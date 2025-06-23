@@ -44,6 +44,12 @@ public class UserService implements IntUserService {
     }
 
     @Override
+    public User findByName(String name) {
+        return userRepository.findByusername(name)
+                .orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada con nombre: "+ name));
+    }
+
+    @Override
     public User create(User entity) throws EntityNotFoundException {
         if(!userRepository.existsByUsername(entity.getUsername())) {
             return userRepository.save(entity);

@@ -1,6 +1,7 @@
 package com.tpfinal.stockmanager.model.dto;
 
 import com.tpfinal.stockmanager.exception.ValidRole;
+import com.tpfinal.stockmanager.model.implementations.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,5 +36,6 @@ public class RegisterRequest {
     @NotBlank(message = "The role can't be empty")
     @ValidRole
     private String role;
+
 }
 

@@ -2,19 +2,24 @@ package com.tpfinal.stockmanager.controller.implementations;
 
 import com.tpfinal.stockmanager.model.dto.RegisterRequest;
 import com.tpfinal.stockmanager.model.implementations.User;
+import com.tpfinal.stockmanager.repository.interfaces.UserRepository;
 import com.tpfinal.stockmanager.service.implementations.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")

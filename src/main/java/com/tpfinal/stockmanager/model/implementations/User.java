@@ -42,6 +42,16 @@ import java.util.List;
         @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
         private List<Sale> sales;
 
+        public User(User user) {
+            this.id = user.getId();
+            this.name = user.getName();
+            this.lastname = user.getLastname();
+            this.username = user.getUsername();
+            this.password = user.getPassword();
+            this.role = user.getRole();
+            this.sales = user.getSales();
+        }
+
 
         @Override
         public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -38,6 +38,12 @@ public class CategoryService implements IntCategoryService {
         return categoryRepository.findByName(name);
     }
 
+    @Override
+    public Category findByName(String name) {
+        return categoryRepository.findByName(name)
+                .orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada con nombre: " + name));
+    }
+
 
     @Override
     public Category create(Category entity) throws EntityExistsException {

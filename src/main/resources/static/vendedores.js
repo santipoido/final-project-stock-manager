@@ -10,6 +10,7 @@ function handleUsuario() {
         agregarUsuario();
     }
 }
+
 function agregarUsuario() {
     const nombre = document.getElementById('firstname').value;
     const apellido = document.getElementById('lastname').value;

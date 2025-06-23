@@ -19,6 +19,9 @@ public class ProductService implements IntProductService {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     @Override
     public List<Product> findAll() {
         return productRepository.findAll();
@@ -38,6 +41,11 @@ public class ProductService implements IntProductService {
     @Override
     public Optional<Product> findOptionalByName(String name) {
         return productRepository.findByName(name);
+    }
+
+    @Override
+    public Product findByName(String name) {
+        return null;
     }
 
     @Override
@@ -77,6 +85,14 @@ public class ProductService implements IntProductService {
 
     public List<Product> getProductsWithoutStock() {
         return productRepository.findAllWithoutStock();
+    }
+
+    public List<Product> getProductsByCategory(String name){
+        if (!categoryRepository.existsByName(name)) {
+            throw new EntityNotFoundException("La categoria no existe");
+        }else{
+            return productRepository.getProductsByCategory(name);
+        }
     }
 
 }

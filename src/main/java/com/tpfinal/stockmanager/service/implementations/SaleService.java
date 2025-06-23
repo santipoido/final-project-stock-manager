@@ -101,6 +101,11 @@ public class SaleService implements IntSaleService {
     }
 
     @Override
+    public Sale findByName(String name) {
+        return null;
+    }
+
+    @Override
     public Sale create(Sale entity) {
         return null;
     }

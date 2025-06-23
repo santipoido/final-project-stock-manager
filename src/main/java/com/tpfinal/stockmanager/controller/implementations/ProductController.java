@@ -78,4 +78,11 @@ public class ProductController {
         List<Product> products = productService.getProductsWithoutStock();
         return ResponseEntity.ok(products);
     }
+
+    @Operation(summary = "Get products by category")
+    @GetMapping("/get/by-category/{name}")
+    public ResponseEntity<List<Product>> getProductsByCategory(@PathVariable String name) {
+        List<Product> products = productService.getProductsByCategory(name);
+        return ResponseEntity.ok(products);
+    }
 }
