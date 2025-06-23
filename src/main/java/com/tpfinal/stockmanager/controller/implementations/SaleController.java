@@ -20,7 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/sales")
 @PreAuthorize("hasAnyRole('ADMIN', 'SELLER')")
-@Tag(name = "Sales", description = "Operations related to sales")
+@Tag(name = "\uD83D\uDCB0Sales", description = "Operations related to sales")
 public class SaleController {
 
     private final SaleService saleService;

@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/categories")
 @PreAuthorize("hasAnyRole('ADMIN', 'SELLER')")
-@Tag(name = "Categories", description = "Operations related to categories")
+@Tag(name = "\uD83D\uDDC2\uFE0FCategories", description = "Operations related to categories")
 public class CategoryController {
 
     @Autowired

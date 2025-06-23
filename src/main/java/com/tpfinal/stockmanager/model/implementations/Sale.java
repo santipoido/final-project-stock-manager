@@ -31,7 +31,7 @@ public class Sale {
     @Column(nullable = false)
     private double totalUsd;
 
-    @JsonIgnoreProperties({"name", "lastname", "username", "password", "role", "sales", "enabled", "authorities", "credentialsNonExpired", "accountNonExpired", "accountNonLocked"})
+    @JsonIgnoreProperties({"name", "lastname", "password", "role", "sales", "enabled", "authorities", "credentialsNonExpired", "accountNonExpired", "accountNonLocked"})
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

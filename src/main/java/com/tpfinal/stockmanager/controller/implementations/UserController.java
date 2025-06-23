@@ -24,7 +24,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/users")
 @PreAuthorize("hasRole('ADMIN')")
-@Tag(name = "Users", description = "Operations related to users")
+@Tag(name = "\uD83D\uDC65Users", description = "Operations related to users")
 public class UserController {
 
     @Autowired

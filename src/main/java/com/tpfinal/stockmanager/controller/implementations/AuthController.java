@@ -47,7 +47,7 @@ public class AuthController {
     private UserRepository userRepository;
 
 
-    @Operation(summary = "Register a new user")
+    @Operation(summary = "\uD83D\uDD10Register a new user")
     @PostMapping("/register")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest request, BindingResult bindingResult) {

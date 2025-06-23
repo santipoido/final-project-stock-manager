@@ -18,7 +18,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/products")
 @PreAuthorize("hasAnyRole('ADMIN', 'SELLER')")
-@Tag(name = "Products", description = "Operations related to products")
+@Tag(name = "\uD83D\uDED2Products", description = "Operations related to products")
 public class ProductController {
 
     @Autowired
